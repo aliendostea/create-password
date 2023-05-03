@@ -1,5 +1,4 @@
 import useCreatePassword from "@/hooks/use-create-password";
-import TestResponsive from "@/testResponsive/TestResponsive";
 import { useEffect, useRef, useState } from "react";
 import style from "./home.module.css";
 
@@ -205,7 +204,6 @@ const Home = () => {
 
   return (
     <div className={style.home}>
-      <TestResponsive />
       <h3 className={style["main-title"]}>Create your new password</h3>
       <div className={style["box-psw"]}>
         <span className={style["box-psw__psw"]}>
