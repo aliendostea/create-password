@@ -1,14 +1,15 @@
-import { Home } from "./pages";
-import { BoxContainer, ContainerGrid, GlobalStyles } from "./styles";
+import Home2 from "./pages/Home2";
+import { InputErrorProvider } from "./store/InputErrorProvider";
+import { PasswordStrengthProvider } from "./store/PasswordStrengthProvider";
+import "./index.css";
 
 const App = () => {
   return (
-    <ContainerGrid>
-      <GlobalStyles />
-      <BoxContainer>
-        <Home />
-      </BoxContainer>
-    </ContainerGrid>
+    <PasswordStrengthProvider>
+      <InputErrorProvider>
+        <Home2 />
+      </InputErrorProvider>
+    </PasswordStrengthProvider>
   );
 };
 

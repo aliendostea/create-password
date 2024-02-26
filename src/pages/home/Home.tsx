@@ -178,6 +178,7 @@ const Home = () => {
       clearTimeout(idSetTimeout);
     };
   }, [isElementCreatedActive]);
+
   useEffect(() => {
     const idSetTimeout = setTimeout(() => {
       setIsPwdCopied(false);
@@ -203,80 +204,72 @@ const Home = () => {
   };
 
   return (
-    <div className={style.home}>
-      <h3 className={style["main-title"]}>Create your new password</h3>
-      <div className={style["box-psw"]}>
-        <span className={style["box-psw__psw"]}>
-          {password ? password : "----"}
-        </span>
+    <>
+      <div className={style.home1}>
+        <h3 className={style["main-title"]}>Create your new password</h3>
 
-        <button className={style["box-psw__btn"]} onClick={handleOnClickCopy}>
-          Copy
-          <HelperElement
-            isActive={isPwdCopied}
-            passwordExist={password}
-            label="Copied"
-            icon="📋"
-            mainClassName="el-created--2"
-          />
-        </button>
-        <input
-          ref={inputRef}
-          className={style.input}
-          name="passwordCopy"
-          type="text"
-          value={password}
-          readOnly
-        />
-      </div>
+        <div>
+          <span className={style["box-psw__psw"]}>
+            {password ? password : "----"}
+          </span>
 
-      <div className={`${style["card"]} ${style["card-1"]}`}>
-        <p>You can create it with different security levels</p>
-        <div className="span">
-          <button
-            className={`${style["select_btn"]}`}
-            onClick={handleOnClickSelectButton}
-          >
-            {passwordStrengthSelected.name
-              ? passwordStrengthSelected.name
-              : "Please choose an option"}
-            <span></span>
+          <button className={style["box-psw__btn"]} onClick={handleOnClickCopy}>
+            Copy
+            <HelperElement
+              isActive={isPwdCopied}
+              passwordExist={password}
+              label="Copied"
+              icon="📋"
+              mainClassName="el-created--2"
+            />
           </button>
-          {openCloseSelectElement && (
-            <div className={`${style["select_parent_span"]}`}>
-              {passwordStrength.map((item: PasswordStrengthProps) => (
-                <span
-                  key={item.name}
-                  className={
-                    passwordStrengthSelected.name === item.name
-                      ? `${style["select_span"]} ${style["select_span--active"]}`
-                      : `${style["select_span"]}`
-                  }
-                  onClick={() => handleOnClickSpan({ ...item })}
-                >
-                  {item.name} <span>{item.emoji}</span>
-                </span>
-              ))}
-            </div>
-          )}
+          <input
+            ref={inputRef}
+            className={style.input}
+            name="passwordCopy"
+            type="text"
+            value={password}
+            readOnly
+          />
+          <button className={style.btn} onClick={handleOnClickCreatePassword}>
+            Generate <br /> new password
+            <span>🔑</span>
+          </button>
         </div>
-      </div>
 
-      <div className={`${style["card"]} ${style["card-2"]}`}>
-        <HelperElement
-          isActive={isElementCreatedActive}
-          passwordExist={password}
-          label="Created"
-          icon="🎉"
-          mainClassName="el-created"
-        />
-        <button className={style.btn} onClick={handleOnClickCreatePassword}>
-          Generate <br /> new password
-          <span>🔑</span>
-        </button>
-      </div>
-      <div className={`${style["card"]} ${style["card-3"]}`}>
-        <div className={`${style["progress-bar__title"]}`}>
+        <div>
+          <p>You can create it with different security levels</p>
+          <div className="span">
+            <button
+              className={`${style["select_btn"]}`}
+              onClick={handleOnClickSelectButton}
+            >
+              {passwordStrengthSelected.name
+                ? passwordStrengthSelected.name
+                : "Please choose an option"}
+              <span></span>
+            </button>
+            {openCloseSelectElement && (
+              <div className={`${style["select_parent_span"]}`}>
+                {passwordStrength.map((item: PasswordStrengthProps) => (
+                  <span
+                    key={item.name}
+                    className={
+                      passwordStrengthSelected.name === item.name
+                        ? `${style["select_span"]} ${style["select_span--active"]}`
+                        : `${style["select_span"]}`
+                    }
+                    onClick={() => handleOnClickSpan({ ...item })}
+                  >
+                    {item.name} <span>{item.emoji}</span>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div>
           <span>Security level:</span>
           <span>
             {passwordStrengthSelected.name
@@ -287,31 +280,122 @@ const Home = () => {
             </span>
           </span>
         </div>
-        <div className={`${style["progress-bar__box"]}`}>
-          <span className={`${style["progress-bar__element"]}`}>
-            <span
-              className={`${style["progress-bar__lines"]} ${style["progress-bar__lines1"]}`}
-            ></span>
-            <span
-              className={`${style["progress-bar__lines"]} ${style["progress-bar__lines2"]}`}
-            ></span>
-            <span
-              className={`${style["progress-bar__lines"]} ${style["progress-bar__lines3"]}`}
-            ></span>
-            <span
-              className={style["progress-bar__element-inner"]}
-              style={{
-                transform: `translateX(calc(${passwordStrengthSelected.percentage}%)) rotate(180deg)`,
-                background: createLinearGradient(passwordStrengthSelected.name),
-              }}
-            ></span>
-          </span>
-          <span className={style["progress-bar__num"]}>
-            {passwordStrengthSelected.percentage}%
-          </span>
-        </div>
       </div>
-    </div>
+
+      {/* <div className={style.home}>
+        <h3 className={style["main-title"]}>Create your new password</h3>
+        <div className={style["box-psw"]}>
+          <span className={style["box-psw__psw"]}>
+            {password ? password : "----"}
+          </span>
+
+          <button className={style["box-psw__btn"]} onClick={handleOnClickCopy}>
+            Copy
+            <HelperElement
+              isActive={isPwdCopied}
+              passwordExist={password}
+              label="Copied"
+              icon="📋"
+              mainClassName="el-created--2"
+            />
+          </button>
+          <input
+            ref={inputRef}
+            className={style.input}
+            name="passwordCopy"
+            type="text"
+            value={password}
+            readOnly
+          />
+        </div>
+
+        <div className={`${style["card"]} ${style["card-1"]}`}>
+          <p>You can create it with different security levels</p>
+          <div className="span">
+            <button
+              className={`${style["select_btn"]}`}
+              onClick={handleOnClickSelectButton}
+            >
+              {passwordStrengthSelected.name
+                ? passwordStrengthSelected.name
+                : "Please choose an option"}
+              <span></span>
+            </button>
+            {openCloseSelectElement && (
+              <div className={`${style["select_parent_span"]}`}>
+                {passwordStrength.map((item: PasswordStrengthProps) => (
+                  <span
+                    key={item.name}
+                    className={
+                      passwordStrengthSelected.name === item.name
+                        ? `${style["select_span"]} ${style["select_span--active"]}`
+                        : `${style["select_span"]}`
+                    }
+                    onClick={() => handleOnClickSpan({ ...item })}
+                  >
+                    {item.name} <span>{item.emoji}</span>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className={`${style["card"]} ${style["card-2"]}`}>
+          <HelperElement
+            isActive={isElementCreatedActive}
+            passwordExist={password}
+            label="Created"
+            icon="🎉"
+            mainClassName="el-created"
+          />
+          <button className={style.btn} onClick={handleOnClickCreatePassword}>
+            Generate <br /> new password
+            <span>🔑</span>
+          </button>
+        </div>
+
+        <div className={`${style["card"]} ${style["card-3"]}`}>
+          <div className={`${style["progress-bar__title"]}`}>
+            <span>Security level:</span>
+            <span>
+              {passwordStrengthSelected.name
+                ? passwordStrengthSelected.name
+                : "-"}
+              <span>
+                {passwordStrengthSelected.emoji &&
+                  passwordStrengthSelected.emoji}
+              </span>
+            </span>
+          </div>
+          <div className={`${style["progress-bar__box"]}`}>
+            <span className={`${style["progress-bar__element"]}`}>
+              <span
+                className={`${style["progress-bar__lines"]} ${style["progress-bar__lines1"]}`}
+              ></span>
+              <span
+                className={`${style["progress-bar__lines"]} ${style["progress-bar__lines2"]}`}
+              ></span>
+              <span
+                className={`${style["progress-bar__lines"]} ${style["progress-bar__lines3"]}`}
+              ></span>
+              <span
+                className={style["progress-bar__element-inner"]}
+                style={{
+                  transform: `translateX(calc(${passwordStrengthSelected.percentage}%)) rotate(180deg)`,
+                  background: createLinearGradient(
+                    passwordStrengthSelected.name
+                  ),
+                }}
+              ></span>
+            </span>
+            <span className={style["progress-bar__num"]}>
+              {passwordStrengthSelected.percentage}%
+            </span>
+          </div>
+        </div>
+      </div> */}
+    </>
   );
 };
 
