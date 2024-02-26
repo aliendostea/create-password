@@ -4,16 +4,16 @@
 
 ```bash
 # Install dependencies
-$ yarn install
+$ npm install
 
 # Start development server
-$ yarn dev
+$ npm run dev
 
 # Start build
-$ yarn build
+$ npm run build
 
 # Start eslint
-$ yarn lint
+$ npm run lint
 ```
 
 ## Features 📋
