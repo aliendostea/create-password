@@ -52,35 +52,9 @@ const passwordStrength: PasswordStrengthProps[] = [
     specialCharactersLength: 4,
     emoji: "💪😈",
     percentage: 95,
-    generate: ({
-      comb1,
-      comb2,
-      comb3,
-      comb4,
-      comb5,
-      comb6,
-    }: CombinationElementsProps) => {
+    generate: ({ comb1, comb2, comb3, comb4, comb5, comb6 }: CombinationElementsProps) => {
       return `${comb6}-${comb1}-${comb2}-${comb3}-${comb4}-${comb5}`;
     },
-  },
-];
-
-const gradients = [
-  {
-    value: `linear-gradient(90deg, rgba(234, 193, 234, 0.64) 0%, rgba(234, 193, 234, 0) 52%, rgba(255, 255, 255, 0) 90%)`,
-    name: "low",
-  },
-  {
-    value: `linear-gradient(90deg, rgba(234, 193, 234, 0.78) 0%, rgba(234, 193, 234, 0) 52%, rgba(255, 255, 255, 0) 90%)`,
-    name: "medium",
-  },
-  {
-    value: `linear-gradient(90deg, rgba(234, 193, 234, 0.78) 0%, rgba(234, 193, 234, 0.76) 22%, rgba(255, 255, 255, 0) 95%)`,
-    name: "hard",
-  },
-  {
-    value: `linear-gradient(90deg, rgb(234, 193, 234) 0%, rgba(234, 193, 234, 0.76) 22%, rgba(255, 255, 255, 0) 95%)`,
-    name: "veryhard",
   },
 ];
 
@@ -98,27 +72,15 @@ interface HelperElementProps {
   mainClassName: string;
 }
 
-const HelperElement = ({
-  isActive,
-  passwordExist,
-  label,
-  icon,
-  mainClassName,
-}: HelperElementProps) => {
-  const [classNameHelperElement, setClassNameHelperElement] = useState(
-    `${style[mainClassName]}`
-  );
+const HelperElement = ({ isActive, passwordExist, label, icon, mainClassName }: HelperElementProps) => {
+  const [classNameHelperElement, setClassNameHelperElement] = useState(`${style[mainClassName]}`);
 
   useEffect(() => {
     if (isActive && passwordExist) {
-      setClassNameHelperElement(
-        `${style[mainClassName]} ${style["el-created--active"]}`
-      );
+      setClassNameHelperElement(`${style[mainClassName]} ${style["el-created--active"]}`);
     }
     if (isActive === false && passwordExist) {
-      setClassNameHelperElement(
-        `${style[mainClassName]} ${style["el-created--disabled"]}`
-      );
+      setClassNameHelperElement(`${style[mainClassName]} ${style["el-created--disabled"]}`);
     }
   }, [isActive]);
   return (
@@ -129,16 +91,13 @@ const HelperElement = ({
 };
 
 const Home = () => {
-  const [passwordStrengthSelected, setPasswordStrengthActive] =
-    useState<PasswordStrengthSelectedProps>({
-      name: "",
-      emoji: "",
-      percentage: 0,
-    });
-  const [openCloseSelectElement, setOpenCloseSelectElement] =
-    useState<boolean>(false);
-  const [isElementCreatedActive, setIsElementCreatedActive] =
-    useState<boolean>(false);
+  const [passwordStrengthSelected, setPasswordStrengthActive] = useState<PasswordStrengthSelectedProps>({
+    name: "",
+    emoji: "",
+    percentage: 0,
+  });
+  const [openCloseSelectElement, setOpenCloseSelectElement] = useState<boolean>(false);
+  const [isElementCreatedActive, setIsElementCreatedActive] = useState<boolean>(false);
   const [isPwdCopied, setIsPwdCopied] = useState<boolean>(false);
   const [password, createPassword] = useCreatePassword({
     passwordStrength,
@@ -194,24 +153,13 @@ const Home = () => {
   ///// hard background: linear-gradient(90deg, rgba(234, 193, 234, 0.78) 0%, rgba(234, 193, 234, 0.76) 22%, rgba(255, 255, 255, 0) 95%);
   ///// veryhard background: linear-gradient(90deg, rgb(234, 193, 234) 0%, rgba(234, 193, 234, 0.76) 22%, rgba(255, 255, 255, 0) 95%);
 
-  const createLinearGradient = (strengthSelected: string): string => {
-    if (strengthSelected === "") return "";
-
-    const [filteredItem] = gradients.filter(
-      (gradient) => gradient.name === strengthSelected
-    );
-    return filteredItem.value;
-  };
-
   return (
     <>
       <div className={style.home1}>
         <h3 className={style["main-title"]}>Create your new password</h3>
 
         <div>
-          <span className={style["box-psw__psw"]}>
-            {password ? password : "----"}
-          </span>
+          <span className={style["box-psw__psw"]}>{password ? password : "----"}</span>
 
           <button className={style["box-psw__btn"]} onClick={handleOnClickCopy}>
             Copy
@@ -223,14 +171,7 @@ const Home = () => {
               mainClassName="el-created--2"
             />
           </button>
-          <input
-            ref={inputRef}
-            className={style.input}
-            name="passwordCopy"
-            type="text"
-            value={password}
-            readOnly
-          />
+          <input ref={inputRef} className={style.input} name="passwordCopy" type="text" value={password} readOnly />
           <button className={style.btn} onClick={handleOnClickCreatePassword}>
             Generate <br /> new password
             <span>🔑</span>
@@ -240,13 +181,8 @@ const Home = () => {
         <div>
           <p>You can create it with different security levels</p>
           <div className="span">
-            <button
-              className={`${style["select_btn"]}`}
-              onClick={handleOnClickSelectButton}
-            >
-              {passwordStrengthSelected.name
-                ? passwordStrengthSelected.name
-                : "Please choose an option"}
+            <button className={`${style["select_btn"]}`} onClick={handleOnClickSelectButton}>
+              {passwordStrengthSelected.name ? passwordStrengthSelected.name : "Please choose an option"}
               <span></span>
             </button>
             {openCloseSelectElement && (
@@ -272,12 +208,8 @@ const Home = () => {
         <div>
           <span>Security level:</span>
           <span>
-            {passwordStrengthSelected.name
-              ? passwordStrengthSelected.name
-              : "-"}
-            <span>
-              {passwordStrengthSelected.emoji && passwordStrengthSelected.emoji}
-            </span>
+            {passwordStrengthSelected.name ? passwordStrengthSelected.name : "-"}
+            <span>{passwordStrengthSelected.emoji && passwordStrengthSelected.emoji}</span>
           </span>
         </div>
       </div>
